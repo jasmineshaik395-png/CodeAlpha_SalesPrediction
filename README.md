@@ -1,109 +1,137 @@
-# 📊 Unemployment Analysis with Python
-
-> **Course:** Data Engineering | **Author:** [Your Name]
-> **Domain:** Economics / Social Data | **Tools:** Python · Pandas · Matplotlib · Seaborn
+# 📈 Sales Prediction using Python
+### CodeAlpha Data Science Internship — Task 4
 
 ---
 
 ## 📌 Project Overview
 
-This project analyzes **India's unemployment data** from CMIE (Centre for Monitoring Indian Economy). It covers state-wise trends, rural vs urban comparison, Covid-19 impact analysis, and seasonal patterns using real-world data.
+This project predicts future **product sales** based on advertising spend across three platforms — **TV, Radio, and Newspaper** — using regression and ensemble machine learning models.
+
+The goal is to help businesses make data-driven marketing decisions by understanding how advertising budget allocation impacts sales outcomes.
 
 ---
 
-## 🗂️ Project Structure
+## 📂 Repository Structure
 
 ```
-CodeAlpha_UnemploymentAnalysis/
-├── data/
-│   ├── Unemployment_in_India.csv           # State-wise monthly data (2019–2020)
-│   └── Unemployment_Rate_upto_11_2020.csv  # National + zone data with coordinates
-├── notebooks/
-│   └── Unemployment_Analysis.ipynb
-├── outputs/
-│   ├── unemployment_dashboard.png   # Full 7-panel analysis dashboard
-│   ├── covid_impact.png             # Covid-19 impact comparison
-│   ├── state_heatmap.png            # State × Month heatmap
-│   ├── correlation_heatmap.png      # Feature correlations
-│   ├── top_bottom_states.png        # Best & worst performing states
-│   └── unemployment_report.txt      # Full statistical report
-├── unemployment_analysis.py
-├── requirements.txt
-└── README.md
+CodeAlpha_SalesPrediction/
+│
+├── Advertising.csv                  # Dataset (200 records)
+├── sales_prediction.py              # Main Python script
+├── sales_prediction_analysis.png    # Output visualisation (auto-generated)
+├── requirements.txt                 # Python dependencies
+└── README.md                        # Project documentation
 ```
 
 ---
 
-## 📊 Dataset Description
+## 📊 Dataset
 
-### Dataset 1 — Unemployment in India
-| Column | Description |
-|---|---|
-| Region | Indian state (28 states) |
-| Date | Monthly date |
-| Estimated Unemployment Rate (%) | State unemployment rate |
-| Estimated Employed | Number of employed people |
-| Estimated Labour Participation Rate (%) | Labour participation |
-| Area | Rural / Urban |
+| Column      | Description                        |
+|-------------|------------------------------------|
+| `TV`        | TV advertising spend ($K)          |
+| `Radio`     | Radio advertising spend ($K)       |
+| `Newspaper` | Newspaper advertising spend ($K)   |
+| `Sales`     | Product sales ($K) — **target**    |
 
-### Dataset 2 — Unemployment Rate upto Nov 2020
-| Column | Description |
-|---|---|
-| Region | Indian state |
-| Date | Monthly date (Jan–Nov 2020) |
-| Unemployment Rate (%) | Monthly rate |
-| Region.1 | Zone (North/South/East/West/Northeast) |
-| longitude/latitude | Geographic coordinates |
+- **200 rows**, **no missing values**
+- Source: Classic ISLR Advertising dataset
 
 ---
 
-## 🦠 Covid-19 Impact
+## 🛠️ Steps Performed
 
-| Period | Avg Unemployment Rate |
-|---|---|
-| Pre-Covid (Jan–Mar 2020) | 9.23% |
-| During Covid (Apr–Nov 2020) | 12.96% |
-| **Spike** | **+3.73 percentage points** |
-| **Peak** | **April 2020 → 75.85%** |
-
----
-
-## 📈 Key Findings
-
-| # | Insight |
-|---|---|
-| 1 | Covid-19 lockdown caused unemployment to spike by **+3.73%** points |
-| 2 | Peak unemployment hit **75.85%** in April 2020 during national lockdown |
-| 3 | **Urban areas** have higher unemployment than Rural areas |
-| 4 | **Northeast zone** shows the highest average unemployment |
-| 5 | Employment gradually recovered after **June 2020** |
-| 6 | **Haryana & Tripura** consistently rank among highest unemployment states |
-| 7 | Labour participation rate declined sharply during lockdown months |
-| 8 | States with higher labour participation show lower unemployment rates |
+1. **Data Loading & Exploration** — shape, dtypes, statistics, null check  
+2. **Data Cleaning & Transformation** — type casting, validation  
+3. **Feature Engineering** — interaction term (TV×Radio), spend ratios, total spend  
+4. **Feature Selection** — 7 features used for modelling  
+5. **Model Training** — 4 regression models with 80/20 train-test split  
+6. **Model Evaluation** — R², MAE, RMSE, 5-fold cross-validation  
+7. **Visualisation** — 7-panel analysis chart  
+8. **Business Insights** — actionable marketing recommendations  
 
 ---
 
-## 🚀 How to Run
+## 🤖 Models Used
 
+| Model               | R² Score | MAE   | RMSE  | CV R²  |
+|---------------------|----------|-------|-------|--------|
+| Linear Regression   | 0.988    | 0.448 | 0.616 | 0.990  |
+| **Ridge Regression**| **0.988**| 0.445 | 0.610 | 0.990  |
+| Random Forest       | 0.987    | 0.475 | 0.629 | 0.988  |
+| Gradient Boosting   | 0.988    | 0.469 | 0.620 | 0.989  |
+
+✅ **Best Model: Ridge Regression** (R² = 0.988)
+
+---
+
+## 💡 Key Business Insights
+
+- **TV × Radio interaction** is the single strongest sales predictor
+- **Radio** delivers the highest ROI per $1K spent (+0.20K sales)
+- **Newspaper** has minimal impact — budget can be reallocated
+- Increasing TV spend combined with Radio creates a **synergistic sales lift**
+
+### Recommended Marketing Strategy
+> Allocate the majority of budget to **TV** for volume, use **Radio** for high efficiency, and minimise **Newspaper** spend.
+
+---
+
+## 📉 Visualisations Generated
+
+- TV / Radio / Newspaper vs Sales scatter plots with trend lines  
+- Correlation heatmap  
+- Model R² comparison bar chart  
+- Actual vs Predicted sales plot  
+- Random Forest feature importance  
+- Advertising spend distribution  
+- Residual plot  
+
+---
+
+## ▶️ How to Run
+
+### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/CodeAlpha_UnemploymentAnalysis.git
-cd CodeAlpha_UnemploymentAnalysis
+git clone https://github.com/ShaikJasmine/CodeAlpha_SalesPrediction.git
+cd CodeAlpha_SalesPrediction
+```
+
+### 2. Install dependencies
+```bash
 pip install -r requirements.txt
-python unemployment_analysis.py
+```
+
+### 3. Run the script
+```bash
+python sales_prediction.py
+```
+
+The script will print model metrics to the console and save **`sales_prediction_analysis.png`** to the current directory.
+
+---
+
+## 🔧 Requirements
+
+```
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
 ```
 
 ---
 
-## 🛠️ Technologies Used
+## 🙏 Acknowledgements
 
-| Tool | Purpose |
-|---|---|
-| **Pandas** | Data loading, cleaning, grouping |
-| **NumPy** | Numerical operations |
-| **Matplotlib** | Dashboards, trend charts |
-| **Seaborn** | Heatmaps, boxplots, KDE |
-| **Jupyter Notebook** | Interactive exploration |
+- **CodeAlpha** for the internship opportunity  
+- Dataset: ISLR Advertising dataset (James et al.)
 
 ---
 
-*Submitted as part of the CodeAlpha Data Science Internship — Task 1 — Unemployment Analysis Project.*
+## 📬 Connect
+
+- 🔗 [LinkedIn](https://www.linkedin.com/in/ShaikJasmine) — *tag @CodeAlpha when you post!*
+- 📧 [jasmineshaik395@gmail.com](mailto:jasmineshaik395@gmail.com)
+- 💻 [GitHub](https://github.com/ShaikJasmine)

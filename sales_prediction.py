@@ -1,6 +1,6 @@
 # =============================================================================
 # CodeAlpha Internship — Task 4: Sales Prediction using Python
-# Author  : [Your Name]
+# Author  : Shaik Jasmine | jasmineshaik395@gmail.com
 # Dataset : Advertising.csv (TV, Radio, Newspaper spend vs Sales)
 # =============================================================================
 
